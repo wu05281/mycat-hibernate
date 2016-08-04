@@ -10,6 +10,30 @@ public class NewsManager {
 	
 	public static void main(String[] args)
 		throws Exception {
+		NewsManager nm = new NewsManager();
+		nm.query();
+	}
+	
+	private void query()throws Exception {
+		//实例化Configuration，
+		Configuration conf = new Configuration()
+		//下面方法默认加载hibernate.cfg.xml文件
+			.configure();
+		//以Configuration创建SessionFactory
+		SessionFactory sf = conf.buildSessionFactory();
+		//创建Session
+		Session sess = sf.openSession();
+		//开始事务
+		News n = (News) sess.get(News.class, new Integer(2147483647));
+		System.out.println(n.getId() +", " + n.getTitle() + ", " +n.getContent());
+		//创建消息实例
+		
+		//关闭Session
+		sess.close();
+		sf.close();
+	}
+	
+	private void save()throws Exception {
 		//实例化Configuration，
 		Configuration conf = new Configuration()
 		//下面方法默认加载hibernate.cfg.xml文件
