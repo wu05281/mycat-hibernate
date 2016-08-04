@@ -11,8 +11,8 @@ public class NewsManager {
 	public static void main(String[] args)
 		throws Exception {
 		NewsManager nm = new NewsManager();
-//		nm.query();
-		nm.save();
+		nm.query();
+//		nm.save();
 	}
 	
 	private void query()throws Exception {
@@ -24,8 +24,8 @@ public class NewsManager {
 		SessionFactory sf = conf.buildSessionFactory();
 		//创建Session
 		Session sess = sf.openSession();
-		//开始事务
-		News n = (News) sess.get(News.class, new Long(2147483647));
+		//开始事务                                                                                                                                        
+		News n = (News) sess.get(News.class, new Long(761147872417812480L));
 		System.out.println(n.getId() +", " + n.getTitle() + ", " +n.getContent());
 		//创建消息实例
 		
