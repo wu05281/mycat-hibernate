@@ -7,7 +7,7 @@
 <!-- Generated 2010-11-9 18:15:04 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
 	<class name="org.crazyit.app.domain.News" table="news_table">
-		<id name="id" type="java.lang.Integer">
+		<id name="id" type="java.lang.Long">
 			<column name="id" />
 			<generator class="identity" />
 		</id>
