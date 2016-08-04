@@ -1,8 +1,6 @@
-DROP TABLE IF EXISTS `news_table`;
 CREATE TABLE `news_table` (
-  `id` INT(20) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(200) DEFAULT NULL,
-  `content` VARCHAR(200) DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) DEFAULT NULL,
+  `content` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
