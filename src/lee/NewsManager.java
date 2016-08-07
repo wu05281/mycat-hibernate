@@ -11,50 +11,52 @@ public class NewsManager {
 	public static void main(String[] args)
 		throws Exception {
 		NewsManager nm = new NewsManager();
-		nm.query();
-//		nm.save();
+		for(int i =0;i<10;i++) {
+			nm.save();
+		}
+//		nm.query();
 	}
 	
 	private void query()throws Exception {
-		//ÊµÀý»¯Configuration£¬
+		//Êµï¿½ï¿½ï¿½ï¿½Configurationï¿½ï¿½
 		Configuration conf = new Configuration()
-		//ÏÂÃæ·½·¨Ä¬ÈÏ¼ÓÔØhibernate.cfg.xmlÎÄ¼þ
+		//ï¿½ï¿½ï¿½æ·½ï¿½ï¿½Ä¬ï¿½Ï¼ï¿½ï¿½ï¿½hibernate.cfg.xmlï¿½Ä¼ï¿½
 			.configure();
-		//ÒÔConfiguration´´½¨SessionFactory
+		//ï¿½ï¿½Configurationï¿½ï¿½ï¿½ï¿½SessionFactory
 		SessionFactory sf = conf.buildSessionFactory();
-		//´´½¨Session
+		//ï¿½ï¿½ï¿½ï¿½Session
 		Session sess = sf.openSession();
-		//¿ªÊ¼ÊÂÎñ                                                                                                                                        
-		News n = (News) sess.get(News.class, new Long(761147872417812480L));
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½                                                                                                                                        
+		News n = (News) sess.get(News.class, new Long(761210452008112128L));
 		System.out.println(n.getId() +", " + n.getTitle() + ", " +n.getContent());
-		//´´½¨ÏûÏ¢ÊµÀý
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Êµï¿½ï¿½
 		
-		//¹Ø±ÕSession
+		//ï¿½Ø±ï¿½Session
 		sess.close();
 		sf.close();
 	}
 	
 	private void save()throws Exception {
-		//ÊµÀý»¯Configuration£¬
+		//Êµï¿½ï¿½ï¿½ï¿½Configurationï¿½ï¿½
 		Configuration conf = new Configuration()
-		//ÏÂÃæ·½·¨Ä¬ÈÏ¼ÓÔØhibernate.cfg.xmlÎÄ¼þ
+		//ï¿½ï¿½ï¿½æ·½ï¿½ï¿½Ä¬ï¿½Ï¼ï¿½ï¿½ï¿½hibernate.cfg.xmlï¿½Ä¼ï¿½
 			.configure();
-		//ÒÔConfiguration´´½¨SessionFactory
+		//ï¿½ï¿½Configurationï¿½ï¿½ï¿½ï¿½SessionFactory
 		SessionFactory sf = conf.buildSessionFactory();
-		//´´½¨Session
+		//ï¿½ï¿½ï¿½ï¿½Session
 		Session sess = sf.openSession();
-		//¿ªÊ¼ÊÂÎñ
+		//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 		Transaction tx = sess.beginTransaction();
-		//´´½¨ÏûÏ¢ÊµÀý
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Êµï¿½ï¿½
 		News n = new News();
-		//ÉèÖÃÏûÏ¢±êÌâºÍÏûÏ¢ÄÚÈÝ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½
 		n.setTitle("mycat");
 		n.setContent("i am zhengnengliang");
-		//±£´æÏûÏ¢
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		sess.save(n);
-		//Ìá½»ÊÂÎñ
+		//ï¿½á½»ï¿½ï¿½ï¿½ï¿½
 		tx.commit();
-		//¹Ø±ÕSession
+		//ï¿½Ø±ï¿½Session
 		sess.close();
 		sf.close();
 	}

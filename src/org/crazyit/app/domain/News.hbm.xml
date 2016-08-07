@@ -6,10 +6,10 @@
 
 <!-- Generated 2010-11-9 18:15:04 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="org.crazyit.app.domain.News" table="news_table">
+	<class name="org.crazyit.app.domain.News" table="NEWS_TABLE">
 		<id name="id" type="java.lang.Long">
 			<column name="id" />
-			<generator class="identity" />
+			<generator class="lee.IDGenerator" />
 		</id>
 		<property name="title" type="java.lang.String">
 			<column name="title" />
