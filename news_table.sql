@@ -6,7 +6,16 @@ CREATE TABLE `news_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS MYCAT_SEQUENCE;  
-CREATE TABLE MYCAT_SEQUENCE (  name VARCHAR(50) NOT NULL,  current_value INT NOT NULL,  increment INT NOT NULL DEFAULT 100, PRIMARY KEY (name) ) ENGINE=InnoDB;
+CREATE TABLE `mycat_sequence` (
+  `NAME` varchar(50) NOT NULL,
+  `current_value` int(11) NOT NULL,
+  `increment` int(11) NOT NULL DEFAULT '100',
+  `max_value` int(11) NOT NULL,
+  `min_value` int(11) NOT NULL,
+  PRIMARY KEY (`NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 -- ----------------------------
 -- Function structure for `mycat_seq_currval`
@@ -31,9 +40,9 @@ DROP FUNCTION IF EXISTS `mycat_seq_nextval`;
 DELIMITER ;;
 CREATE DEFINER=`root`@`%` FUNCTION `mycat_seq_nextval`(seq_name VARCHAR(50)) RETURNS varchar(20) 
     DETERMINISTIC
-BEGIN  
+BEGIN 
          UPDATE MYCAT_SEQUENCE  
-                 SET current_value = current_value + increment WHERE name = seq_name; 
+                 SET current_value =  IF ((current_value + increment) > max_value , min_value , (current_value + increment))  WHERE name = seq_name; 
          RETURN mycat_seq_currval(seq_name) ;  
 END
 ;;
