@@ -37,7 +37,7 @@ public class SingletonObject {
 		return obj;
 	}
 
-	public void genSeq(String tableName){
+	public synchronized void genSeq(String tableName){
 		//缓存长度
 		Integer seqCache = map.get(tableName + seqCacheSuffix);
 		//序列值

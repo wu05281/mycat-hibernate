@@ -33,6 +33,8 @@ public class KeySingleton {
 	 */
 	private static String sequenceSuffix = "_SEQUENCE";
 
+	private SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMddHHmmss");
+	
 	private KeySingleton(){
 		
 	}
@@ -50,9 +52,7 @@ public class KeySingleton {
 		return keySingleton;
 	}
 	
-	public Long sequence(SessionImplementor arg0, Object arg1){
-		Session session = arg0.getFactory().openSession();
-		Transaction tx = session.beginTransaction();
+	public synchronized Long sequence(SessionImplementor arg0, Object arg1){
 		//持久化对象  
 		AbstractEntityPersister classMetadata =  (AbstractEntityPersister) arg0.getFactory().getClassMetadata(arg1.getClass());
 		String tableName = classMetadata.getTableName();//表名
@@ -61,6 +61,8 @@ public class KeySingleton {
 		//序列值
 		Integer sequence = map.get(tableName + sequenceSuffix);
 		if (seqCache == null){
+			Session session = arg0.getFactory().openSession();
+			Transaction tx = session.beginTransaction();
 			SQLQuery query = session.createSQLQuery("SELECT mycat_seq_nextval('"+tableName +"')");
 			String seq = (String) query.uniqueResult();
 			String[] seqs = seq.split(",");
@@ -68,16 +70,15 @@ public class KeySingleton {
 			seqCache = Integer.valueOf(seqs[1]);
 			//获取此序列初始值
 			sequence = Integer.valueOf(seqs[0]);
+			tx.commit();
+			session.close();
 		} 
-		SimpleDateFormat formatter = new SimpleDateFormat ("yyyyMMddHHmmss");
 		String id = formatter.format(new Date()) + "" + sequence;
 		System.out.println(id);
 		seqCache--;
 		sequence++;
 		map.put(tableName + seqCacheSuffix, seqCache);
 		map.put(tableName + sequenceSuffix, sequence);
-		tx.commit();
-		session.close();
 		return Long.valueOf(id);
 	}
 }
