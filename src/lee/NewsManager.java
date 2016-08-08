@@ -11,7 +11,7 @@ public class NewsManager {
 	public static void main(String[] args)
 		throws Exception {
 		NewsManager nm = new NewsManager();
-		for(int i =0;i<10;i++) {
+		for(int i =0;i<38;i++) {
 			nm.save();
 		}
 //		nm.query();
